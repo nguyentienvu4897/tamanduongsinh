@@ -65,13 +65,13 @@
                                                 <label>Họ và tên:</label>
                                                 <input placeholder="Họ và tên..." type="text"
                                                     class="form-control form-control-lg" required value=""
-                                                    name="contact[Name]">
+                                                    name="contact[Họ và tên]">
                                             </fieldset>
                                             <fieldset class="form-group">
                                                 <label>Email:</label>
                                                 <input placeholder="Email" type="email"
                                                     pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required id="email1"
-                                                    class="form-control form-control-lg" value="" name="contact[email]">
+                                                    class="form-control form-control-lg" value="" name="contact[Email]">
                                             </fieldset>
                                             <fieldset class="form-group">
                                                 <label>Số điện thoại:</label>
@@ -81,9 +81,10 @@
                                             </fieldset>
                                             <fieldset class="form-group form-group-textarea">
                                                 <label>Ghi chú:</label>
-                                                <textarea placeholder="Nhập ghi chú" name="contact[body]" id="comment"
-                                                    class="form-control content-area form-control-lg" rows="3" Required></textarea>
+                                                <textarea placeholder="Nhập ghi chú" name="contact[Nội dung]" id="comment"
+                                                    class="form-control content-area form-control-lg" rows="3" ></textarea>
                                             </fieldset>
+                                            <input type="hidden" name="contact[Loại]" value="Lữ hành">
                                             <div class="submit">
                                                 <button type="submit" class="btn-primary button_45 btn">Gửi thông tin liên hệ</button>
                                             </div>
@@ -100,6 +101,54 @@
                             </div>
                         </div>
                     </form>
+                    <script>
+                        jQuery('#contact').validate({
+                            rules: {
+                                "contact[Họ và tên]": {
+                                    required: true,
+                                },
+                                "contact[Email]": {
+                                    required: true,
+                                    email: true,
+                                },
+                                "contact[Số điện thoại]": {
+                                    required: true,
+                                    number: true,
+                                    minlength: 10,
+                                },
+                                "contact[Loại]": {
+                                    required: true,
+                                },
+                            },
+                            messages: {
+                                "contact[Họ và tên]": {
+                                    required: "Vui lòng nhập họ và tên",
+                                },
+                                "contact[Email]": {
+                                    required: "Email không được để trống",
+                                },
+                                "contact[Số điện thoại]": {
+                                    required: "Nhập số điện thoại liên hệ",
+                                },
+                                "contact[Loại]": {
+                                    required: "Chọn loại",
+                                },
+                            },
+                            submitHandler: function(form) {
+                                jQuery.ajax({
+                                    url: "https://script.google.com/macros/s/AKfycbwacSU5_P2qnY1Stzh3vvk6T0Rb6qEX_nK3VjLwvmMKKFNZf6qYogZO35RqfCaPP9utrw/exec",
+                                    type: "post",
+                                    data: jQuery("#contact").serializeArray(),
+                                    success: function() {
+                                        toastr.success("Gửi thông tin thành công");
+                                    },
+                                    error: function() {
+                                        toastr.error("Gửi thông tin thất bại");
+                                    }
+                                });
+                            }
+                        });
+                    </script>
                 </div>
             </section>
         </section>

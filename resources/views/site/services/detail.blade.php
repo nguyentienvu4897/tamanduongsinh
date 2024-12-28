@@ -135,7 +135,7 @@
                                             <!-- Giá -->
                                         </li>
                                         @endif
-                                        <li><a href="/dat-lich?dieu-tri-tham-mun" title="Đặt lịch ngay"
+                                        <li><a href="tel:{{str_replace(' ', '', $config->hotline)}}" title="Đặt lịch ngay"
                                                 class="button-dl">Đặt lịch ngay</a></li>
                                     </ul>
                                 </div>

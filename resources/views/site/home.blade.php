@@ -6,7 +6,7 @@
 {{$config->web_des}}
 @endsection
 @section('image')
-{{url(''.$banners[0]->image->path)}}
+{{($banners[0]->image->path)}}
 @endsection
 @section('css')
 <link href="{{ asset('/site/css/style_page.scss.css') }}" rel="stylesheet" type="text/css" media="all" />
@@ -68,89 +68,138 @@
             },
         });
     </script>
-    {{-- <section class="section_chinhsach section2">
+
+    <section class="section_khuyenmai section_product_km">
         <div class="container">
-        <div class="chinhsach-thumb">
-            <div class="chinhsach-swiper swiper-container">
-                <div class="swiper-wrapper">
-                    <div  class="swiper-slide">
-                    <img width="64" height="64" src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/chinhsach_1.png?1727784692442" alt="Miễn phí vẫn chuyển">
-                    <div class="text">
-                        <span class="title">Miễn phí vẫn chuyển</span>
-                        <span class="des">Cho tất cả đơn hàng trong nội thành Hà Nội</span>
-                    </div>
-                    </div>
-                    <div  class="swiper-slide">
-                    <img width="64" height="64" src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/chinhsach_2.png?1727784692442" alt="Miễn phí đổi - trả">
-                    <div class="text">
-                        <span class="title">Miễn phí đổi - trả</span>
-                        <span class="des">Đối với sản phẩm lỗi sản xuất hoặc vận chuyển</span>
-                    </div>
-                    </div>
-                    <div  class="swiper-slide">
-                    <img width="64" height="64" src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/chinhsach_3.png?1727784692442" alt="Hỗ trợ nhanh chóng">
-                    <div class="text">
-                        <span class="title">Hỗ trợ nhanh chóng</span>
-                        <span class="des">Gọi Hotline: 19006750 để được hỗ trợ ngay lập tức</span>
-                    </div>
-                    </div>
-                    <div  class="swiper-slide">
-                    <img width="64" height="64" src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/chinhsach_4.png?1727784692442" alt="Ưu đãi thành viên">
-                    <div class="text">
-                        <span class="title">Ưu đãi thành viên</span>
-                        <span class="des">Đăng ký thành viên để được nhận được nhiều khuyến mãi</span>
-                    </div>
+        <div class="thumb-khuyenmai">
+            <img width="1774" height="775" alt="Trải nghiệm khuyến mãi đặc biệt" class="lazyload" src="{{asset('/site/images/lazy.png')}}"  data-src="{{asset('/site/images/hot_icon.png')}}">
+            <div class="thumb-content">
+                <h3 class="title-index p-5">
+                    <span class="title-name">Trải nghiệm ưu đãi đặc biệt
+                    </span>
+                    <img width="320" height="24" class="lazyload" src="{{asset('/site/images/lazy.png')}}"  data-src="{{asset('/site/images/title.png')}}" alt="{{$config->web_title}}">
+                </h3>
+                <div class="content">
+                    <h5>Chỉ áp dụng ưu đãi cho dịch vụ trị liệu</h5>
+                    Trải nhiệm chăm sóc chuyên sâu bằng phương pháp đông y dưỡng sinh cải thiện sức khỏe cơ thể<br>Xóa tan các hiện tượng căng thẳng đau đầu, mất ngủ, đau mỏi vai gáy, đĩa đệm....
+                </div>
+                <div class="count-down">
+                    <div class="timer-view">
+                    <div class="block-timer">Chỉ với <b>179.000đ</b></div>
                     </div>
                 </div>
-                <div class="swiper-button-next">
-                </div>
-                <div class="swiper-button-prev">
-                </div>
+                <form id="contact-promotion" accept-charset="UTF-8">
+                    <div id="pagelogin">
+                        <div class="form-signup clearfix">
+                            <div class="group_contact row">
+                                <fieldset class="form-group">
+                                    <label>Họ và tên:</label>
+                                    <input placeholder="Họ và tên..." type="text" class="form-control form-control-lg" required="" value="" name="contact[Họ và tên]">
+                                </fieldset>
+                                <fieldset class="form-group">
+                                    <label>Số điện thoại:</label>
+                                    <input placeholder="Số điện thoại..." type="number" class="form-control form-control-lg" required="" value="" name="contact[Số điện thoại]">
+                                </fieldset>
+                                <input type="hidden" name="contact[Loại]" value="Đăng ký trải nghiệm">
+                                <div class="submit">
+                                    <button type="submit" class="btn-primary button_45 btn">Đăng ký trải nghiệm</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <script>
+                    jQuery('#contact-promotion').validate({
+                        rules: {
+                            "contact[Họ và tên]": {
+                                required: true,
+                            },
+                            "contact[Số điện thoại]": {
+                                required: true,
+                                number: true,
+                                minlength: 10,
+                            },
+                        },
+                        messages: {
+                            "contact[Họ và tên]": {
+                                required: "Vui lòng nhập họ và tên",
+                            },
+                            "contact[Số điện thoại]": {
+                                required: "Nhập số điện thoại liên hệ",
+                            },
+                            "contact[Loại]": {
+                                required: "Chọn loại",
+                            },
+                        },
+                        submitHandler: function(form) {
+                            jQuery.ajax({
+                                url: "https://script.google.com/macros/s/AKfycbwacSU5_P2qnY1Stzh3vvk6T0Rb6qEX_nK3VjLwvmMKKFNZf6qYogZO35RqfCaPP9utrw/exec",
+                                type: "post",
+                                data: jQuery("#contact-promotion").serializeArray(),
+                                success: function() {
+                                    toastr.success("Đăng ký trải nghiệm thành công");
+                                },
+                                error: function() {
+                                    toastr.error("Gửi thông tin thất bại");
+                                }
+                            });
+                        }
+                    });
+                </script>
+                <style>
+                    #contact-promotion #pagelogin {
+                        padding: 20px;
+                        background: #121f38;
+                        border-radius: 30px 10px;
+                    }
+                    #contact-promotion #pagelogin .form-signup .group_contact .form-group {
+                        flex: 0 0 50%;
+                        max-width: 50%;
+                        position: relative;
+                        width: 100%;
+                        padding-right: 10px;
+                        padding-left: 10px;
+                        margin-bottom: 20px;
+                        color: #fff;
+                    }
+                    #contact-promotion #pagelogin .form-signup .group_contact .form-group label {
+                        width: 100%;
+                        font-weight: 700;
+                        font-size: 14px;
+                        text-align: left;
+                    }
+                    #contact-promotion #pagelogin .form-signup .group_contact .form-group input {
+                        width: 100% !important;
+                        border-radius: 10px 2px;
+                        height: 35px;
+                        font-size: 15px;
+                        border: 0;
+                        border-bottom: 2px solid #121f38;
+                        padding: 1px 10px;
+                    }
+                    #contact-promotion #pagelogin .form-signup .group_contact .form-group input:focus {
+                        border-bottom: 2px solid #121f38;
+                    }
+                    #contact-promotion #pagelogin .form-signup .group_contact .submit {
+                        text-align: center;
+                        display: inline-block;
+                        width: 100%;
+                    }
+                    #contact-promotion #pagelogin .form-signup .group_contact .submit .button_45 {
+                        background: #9a563a;
+                        color: #fff;
+                        border-radius: 10px 2px;
+                        height: 35px;
+                        font-size: 15px;
+                        border: 0;
+                        padding: 1px 10px;
+                    }
+                </style>
             </div>
         </div>
         </div>
-    </section> --}}
-    {{-- <script>
-        var swiperchinhsach = new Swiper('.chinhsach-swiper', {
-            slidesPerView: 3,
-            loop: false,
-            grabCursor: true,
-            spaceBetween: 30,
-            roundLengths: true,
-            slideToClickedSlide: false,
-            navigation: {
-                nextEl: '.chinhsach-swiper .swiper-button-next',
-                prevEl: '.chinhsach-swiper .swiper-button-prev',
-            },
-            autoplay: false,
-            breakpoints: {
-                300: {
-                    slidesPerView: 1,
-                    spaceBetween: 10
-                },
-                500: {
-                    slidesPerView: 1,
-                    spaceBetween: 10
-                },
-                640: {
-                    slidesPerView: 2,
-                    spaceBetween: 10
-                },
-                768: {
-                    slidesPerView: 2,
-                    spaceBetween: 30
-                },
-                991: {
-                    slidesPerView: 3,
-                    spaceBetween: 30
-                },
-                1200: {
-                    slidesPerView: 4,
-                    spaceBetween: 30
-                }
-            }
-        });
-    </script> --}}
+    </section>
+
     <section class="section_about section3">
         <div class="container">
         <div class="row" >
@@ -221,6 +270,7 @@
         </div>
         </div>
     </section>
+    
     @foreach ($listServiceTypes as $type)
     @if ($type->services->count() > 0)
     <section class="section_product_dichvu">
@@ -389,299 +439,7 @@
             lazyBlockProduct('section_product','0px 0px -250px 0px',runSwiperPro);
         });
     </script>
-    {{-- <section class="section_khuyenmai section_product_km">
-        <div class="container">
-        <div class="thumb-khuyenmai">
-            <img width="1774" height="775" alt="Sản phẩm khuyến mãi" class="lazyload" src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/lazy.png?1727784692442"  data-src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/hot_icon.png?1727784692442">
-            <div class="thumb-content">
-                <h3 class="title-index p-5">
-                    <span class="title-name">Sản phẩm khuyến mãi
-                    </span>
-                    <img width="320" height="24" class="lazyload" src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/lazy.png?1727784692442"  data-src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/title.png?1727784692442" alt="{{$config->web_title}}">
-                </h3>
-                <div class="content">
-                    Chúng tôi luôn đưa ra nhiều chương trình khuyến mãi để quý khách có thể trãi nghiệm và tận hưởng mọi sản phẩm từ cửa hàng.
-                </div>
-                <div class="count-down">
-                    <div class="timer-view" data-countdown="countdown" data-date="2025-01-01-00-00-00">
-                    <div class="block-timer"><b>65</b>Ngày</div>
-                    <div class="block-timer"><b>10</b>Giờ</div>
-                    <div class="block-timer"><b>24</b>Phút</div>
-                    <div class="block-timer"><b>29</b>Giây</div>
-                    </div>
-                </div>
-                <a class="button" href="san-pham-khyen-mai" title="Xem ngay">Xem ngay</a>
-            </div>
-        </div>
-        <div class="block-product-list">
-            <div class="productkm-swiper swiper_pro swiper-container">
-                <div class="swiper-wrapper load-after" data-section="section_product_km">
-                    <script type="text/x-custom-template" data-template="section_product_km">
-                    <div class="swiper-slide">
 
-                    <form action="/cart/add" method="post" class="variants product-action" data-cart-form data-id="product-actions-36324546" enctype="multipart/form-data">
-                    <div class="product-thumbnail">
-                    <a class="image_thumb scale_hover" href="/son-sieu-duong-vani-dua" title="Son siêu dưỡng Vani- Dừa">
-                    <img  width="234" height="234" class="lazyload image1" src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/lazy.png?1727784692442"  data-src="https://bizweb.dktcdn.net/100/512/203/products/1-3191508a1fef420db2cbe4cf1ee9e5.jpg?v=1719390379030" alt="Son siêu dưỡng Vani- Dừa">
-
-                    <img width="234" height="234" class="lazyload image2" src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/lazy.png?1727784692442"  data-src="https://bizweb.dktcdn.net/100/512/203/products/1-3191508a1fef420db2cbe4cf1ee9e5.jpg?v=1719390379030" alt="Son siêu dưỡng Vani- Dừa">
-
-                    </a>
-
-                    <input class="hidden" type="hidden" name="variantId" value="120484169" />
-                    <div class="action">
-                    <button class="btn-cart btn-views add_to_cart " title="Thêm vào giỏ">
-                    <svg class="icon"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cart"></use> </svg>
-                    </button>
-
-                    <a href="javascript:void(0)" class="setWishlist btn-wishlist btn-views" data-wish="son-sieu-duong-vani-dua" tabindex="0" title="Thêm vào yêu thích">
-                    <svg class="icon"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-wishlist"></use> </svg>
-                    </a>
-
-                    <a title="Xem nhanh" href="/son-sieu-duong-vani-dua" data-handle="son-sieu-duong-vani-dua" class="quick-view btn-views">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                    <path fill="#fff" d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"></path>
-                    </svg>
-                    </a>
-                    </div>
-
-                    </div>
-
-                    <div class="product-info">
-                    <h3 class="product-name"><a class="line-clamp line-clamp-2" href="/son-sieu-duong-vani-dua" title="Son siêu dưỡng Vani- Dừa">Son siêu dưỡng Vani- Dừa</a></h3>
-                    <div class="price-box">
-                    79.000₫		</div>
-                    </div>
-
-                    </form>
-                    </div>
-
-                    <div class="swiper-slide">
-
-                    <form action="/cart/add" method="post" class="variants product-action" data-cart-form data-id="product-actions-36324511" enctype="multipart/form-data">
-                    <div class="product-thumbnail">
-                    <a class="image_thumb scale_hover" href="/nuoc-tay-trang-green-tea" title="Nước tẩy trang Green Tea">
-                    <img  width="234" height="234" class="lazyload image1" src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/lazy.png?1727784692442"  data-src="https://bizweb.dktcdn.net/100/512/203/products/nuoc-tay-trang-thien-nhien-tra-x.jpg?v=1719390146200" alt="Nước tẩy trang Green Tea">
-
-                    <img width="234" height="234" class="lazyload image2" src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/lazy.png?1727784692442"  data-src="https://bizweb.dktcdn.net/100/512/203/products/nuoc-tay-trang-thien-nhien-tra-x.jpg?v=1719390146200" alt="Nước tẩy trang Green Tea">
-
-                    </a>
-
-                    <input class="hidden" type="hidden" name="variantId" value="120484081" />
-                    <div class="action">
-                    <button class="btn-cart btn-views add_to_cart " title="Thêm vào giỏ">
-                    <svg class="icon"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cart"></use> </svg>
-                    </button>
-
-                    <a href="javascript:void(0)" class="setWishlist btn-wishlist btn-views" data-wish="nuoc-tay-trang-green-tea" tabindex="0" title="Thêm vào yêu thích">
-                    <svg class="icon"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-wishlist"></use> </svg>
-                    </a>
-
-                    <a title="Xem nhanh" href="/nuoc-tay-trang-green-tea" data-handle="nuoc-tay-trang-green-tea" class="quick-view btn-views">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                    <path fill="#fff" d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"></path>
-                    </svg>
-                    </a>
-                    </div>
-
-                    </div>
-
-                    <div class="product-info">
-                    <h3 class="product-name"><a class="line-clamp line-clamp-2" href="/nuoc-tay-trang-green-tea" title="Nước tẩy trang Green Tea">Nước tẩy trang Green Tea</a></h3>
-                    <div class="price-box">
-                    135.000₫		</div>
-                    </div>
-
-                    </form>
-                    </div>
-
-                    <div class="swiper-slide">
-
-                    <form action="/cart/add" method="post" class="variants product-action" data-cart-form data-id="product-actions-36324278" enctype="multipart/form-data">
-                    <div class="product-thumbnail">
-                    <a class="image_thumb scale_hover" href="/dung-moi-khuech-tan" title="Dung môi khuếch tán">
-                    <img  width="234" height="234" class="lazyload image1" src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/lazy.png?1727784692442"  data-src="https://bizweb.dktcdn.net/100/512/203/products/z4421348153157-c25350820631ebb7c.jpg?v=1719389052367" alt="Dung môi khuếch tán">
-
-                    <img width="234" height="234" class="lazyload image2" src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/lazy.png?1727784692442" data-src="https://bizweb.dktcdn.net/100/512/203/products/moi-viec-luon-co-ve-la-khong-the.jpg?v=1719389052367" alt="Dung môi khuếch tán" />
-
-                    </a>
-
-                    <input class="hidden" type="hidden" name="variantId" value="120483645" />
-                    <div class="action">
-                    <button class="btn-cart btn-views" title="Xem chi tiết" type="button" onclick="window.location.href='/dung-moi-khuech-tan'" >
-                    <svg class="icon"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-detail"></use> </svg>
-                    </button>
-
-                    <a href="javascript:void(0)" class="setWishlist btn-wishlist btn-views" data-wish="dung-moi-khuech-tan" tabindex="0" title="Thêm vào yêu thích">
-                    <svg class="icon"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-wishlist"></use> </svg>
-                    </a>
-
-                    <a title="Xem nhanh" href="/dung-moi-khuech-tan" data-handle="dung-moi-khuech-tan" class="quick-view btn-views">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                    <path fill="#fff" d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"></path>
-                    </svg>
-                    </a>
-                    </div>
-
-                    </div>
-
-                    <div class="product-info">
-                    <h3 class="product-name"><a class="line-clamp line-clamp-2" href="/dung-moi-khuech-tan" title="Dung môi khuếch tán">Dung môi khuếch tán</a></h3>
-                    <div class="price-box">
-                    80.000₫		</div>
-                    </div>
-
-                    </form>
-                    </div>
-
-                    <div class="swiper-slide">
-
-                    <form action="/cart/add" method="post" class="variants product-action" data-cart-form data-id="product-actions-36324258" enctype="multipart/form-data">
-                    <div class="product-thumbnail">
-                    <a class="image_thumb scale_hover" href="/candle-lighter-do-dot-nen-usb" title="Candle lighter- đồ đốt nến USB">
-                    <img  width="234" height="234" class="lazyload image1" src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/lazy.png?1727784692442"  data-src="https://bizweb.dktcdn.net/100/512/203/products/15-e7acf017a7354275b4b1bee5281c9-1.jpg?v=1719388953497" alt="Candle lighter- đồ đốt nến USB">
-
-                    <img width="234" height="234" class="lazyload image2" src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/lazy.png?1727784692442" data-src="https://bizweb.dktcdn.net/100/512/203/products/16-ef0bb06b469a4edf8ebdbed41d30d.jpg?v=1719388953497" alt="Candle lighter- đồ đốt nến USB" />
-
-                    </a>
-
-                    <input class="hidden" type="hidden" name="variantId" value="120483602" />
-                    <div class="action">
-                    <button class="btn-cart btn-views add_to_cart " title="Thêm vào giỏ">
-                    <svg class="icon"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cart"></use> </svg>
-                    </button>
-
-                    <a href="javascript:void(0)" class="setWishlist btn-wishlist btn-views" data-wish="candle-lighter-do-dot-nen-usb" tabindex="0" title="Thêm vào yêu thích">
-                    <svg class="icon"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-wishlist"></use> </svg>
-                    </a>
-
-                    <a title="Xem nhanh" href="/candle-lighter-do-dot-nen-usb" data-handle="candle-lighter-do-dot-nen-usb" class="quick-view btn-views">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                    <path fill="#fff" d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"></path>
-                    </svg>
-                    </a>
-                    </div>
-
-                    </div>
-
-                    <div class="product-info">
-                    <h3 class="product-name"><a class="line-clamp line-clamp-2" href="/candle-lighter-do-dot-nen-usb" title="Candle lighter- đồ đốt nến USB">Candle lighter- đồ đốt nến USB</a></h3>
-                    <div class="price-box">
-                    150.000₫		</div>
-                    </div>
-
-                    </form>
-                    </div>
-
-                    <div class="swiper-slide">
-
-                    <form action="/cart/add" method="post" class="variants product-action" data-cart-form data-id="product-actions-36324228" enctype="multipart/form-data">
-                    <div class="product-thumbnail">
-                    <a class="image_thumb scale_hover" href="/sap-thom-phong-thuy" title="Sáp thơm phong thủy">
-                    <img  width="234" height="234" class="lazyload image1" src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/lazy.png?1727784692442"  data-src="https://bizweb.dktcdn.net/100/512/203/products/1-vuong-c25eb881c8434bb3bfb2fbf3.jpg?v=1719388771327" alt="Sáp thơm phong thủy">
-
-                    <img width="234" height="234" class="lazyload image2" src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/lazy.png?1727784692442" data-src="https://bizweb.dktcdn.net/100/512/203/products/7-vuong-44b8c028896d434dbdc503fb.jpg?v=1719388771327" alt="Sáp thơm phong thủy" />
-
-                    </a>
-
-                    <input class="hidden" type="hidden" name="variantId" value="120483563" />
-                    <div class="action">
-                    <button class="btn-cart btn-views add_to_cart " title="Thêm vào giỏ">
-                    <svg class="icon"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cart"></use> </svg>
-                    </button>
-
-                    <a href="javascript:void(0)" class="setWishlist btn-wishlist btn-views" data-wish="sap-thom-phong-thuy" tabindex="0" title="Thêm vào yêu thích">
-                    <svg class="icon"> <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-wishlist"></use> </svg>
-                    </a>
-
-                    <a title="Xem nhanh" href="/sap-thom-phong-thuy" data-handle="sap-thom-phong-thuy" class="quick-view btn-views">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                    <path fill="#fff" d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"></path>
-                    </svg>
-                    </a>
-                    </div>
-
-                    </div>
-
-                    <div class="product-info">
-                    <h3 class="product-name"><a class="line-clamp line-clamp-2" href="/sap-thom-phong-thuy" title="Sáp thơm phong thủy">Sáp thơm phong thủy</a></h3>
-                    <div class="price-box">
-                    100.000₫		</div>
-                    </div>
-
-                    </form>
-                    </div>
-
-                    </script>
-                </div>
-                <div class="swiper-button-next">
-                </div>
-                <div class="swiper-button-prev">
-                </div>
-            </div>
-        </div>
-        </div>
-    </section>
-    <script>
-        $(document).ready(function ($) {
-            function runSwiperProkm() {
-                var swiper_pro_km = null;
-                function initSwiperProkm() {
-                    swiper_pro_km = new Swiper('.productkm-swiper', {
-                        slidesPerView: 3,
-                        loop: false,
-                        grabCursor: true,
-                        roundLengths: true,
-                        slideToClickedSlide: false,
-                        spaceBetween: 20,
-                        autoplay: false,
-                        navigation: {
-                            nextEl: '.productkm-swiper .swiper-button-next',
-                            prevEl: '.productkm-swiper .swiper-button-prev',
-                        },
-                        breakpoints: {
-                            300: {
-                                slidesPerView: 1,
-                                spaceBetween: 15,
-                            },
-                            450: {
-                                slidesPerView: 2,
-                                spaceBetween: 15,
-                            },
-                            640: {
-                                slidesPerView: 2,
-                                spaceBetween: 15
-                            },
-                            767: {
-                                slidesPerView: 2,
-                                spaceBetween: 15
-                            },
-                            991: {
-                                slidesPerView: 2,
-                                spaceBetween: 15
-                            },
-                            1200: {
-                                slidesPerView: 4,
-                                spaceBetween: 20
-                            }
-                        }
-                    });
-                }
-                function destroySwiperProkm() {
-                    if (swiper_pro_km) {
-                        swiper_pro_km.destroy(true, true);
-                        swiper_pro_km = null;
-                    }
-                }
-                function toggleSwiperProkm() {
-                    initSwiperProkm();
-                }
-                toggleSwiperProkm();
-                $(window).resize(toggleSwiperProkm);
-            }
-            lazyBlockProduct('section_product_km','0px 0px -250px 0px',runSwiperProkm);
-        });
-    </script> --}}
     <section class="section_video">
         <div class="container">
         <div class="row">
@@ -725,11 +483,11 @@
                             <div class="group_contact row">
                                 <fieldset class="form-group">
                                     <label>Họ và tên:</label>
-                                    <input placeholder="Họ và tên..." type="text" class="form-control form-control-lg" required="" value="" name="contact['Họ và tên']">
+                                    <input placeholder="Họ và tên..." type="text" class="form-control form-control-lg" required="" value="" name="contact[Họ và tên]">
                                 </fieldset>
                                 <fieldset class="form-group">
                                     <label>Email:</label>
-                                    <input placeholder="Email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required="" id="email1" class="form-control form-control-lg" value="" name="contact['Email']">
+                                    <input placeholder="Email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required="" id="email1" class="form-control form-control-lg" value="" name="contact[Email]">
                                 </fieldset>
                                 <fieldset class="form-group">
                                     <label>Số điện thoại:</label>
@@ -795,13 +553,13 @@
                         },
                         messages: {
                             "contact[Họ và tên]": {
-                                required: "Tên bạn là gì?",
+                                required: "Vui lòng nhập họ và tên",
                             },
                             "contact[Email]": {
                                 required: "Email không được để trống",
                             },
                             "contact[Số điện thoại]": {
-                                required: "Nhập sdt liên hệ",
+                                required: "Nhập số điện thoại liên hệ",
                             },
                             "contact[Dịch vụ]": {
                                 required: "Vui lòng chọn dịch vụ",
@@ -817,14 +575,12 @@
                             },
                         },
                         submitHandler: function(form) {
-                            console.log(jQuery("#contact").serializeArray());
-
                             jQuery.ajax({
                                 url: "https://script.google.com/macros/s/AKfycbwacSU5_P2qnY1Stzh3vvk6T0Rb6qEX_nK3VjLwvmMKKFNZf6qYogZO35RqfCaPP9utrw/exec",
                                 type: "post",
                                 data: jQuery("#contact").serializeArray(),
                                 success: function() {
-                                    toastr.success("Thành công! Bạn đã đặt lịch thành công");
+                                    toastr.success("Đặt lịch thành công");
                                 },
                                 error: function() {
                                     toastr.error("Gửi thông tin thất bại");
@@ -914,111 +670,7 @@
             }
         });
     </script>
-    {{-- <section class="section_doingu">
-        <div class="container">
-        <h3 class="title-index p-5">
-            <span class="title-name">Đội ngũ của chúng tôi
-            </span>
-            <img width="320" height="24" class="lazyload" src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/lazy.png?1727784692442"  data-src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/title.png?1727784692442" alt="{{$config->web_title}}">
-        </h3>
-        <div class="doingu-slider swiper-container">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="item">
-                    <div class="thumb-image">
-                        <img width="296" height="421" class="lazyload" src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/lazy.png?1727784692442"  data-src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/doingu_1.jpg?1727784692442" alt="Lenda Murray">
-                    </div>
-                    <h3 class="title-item">
-                        Lenda Murray
-                    </h3>
-                    <span class="text">Chuyên viên tư vấn</span>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="item">
-                    <div class="thumb-image">
-                        <img width="296" height="421" class="lazyload" src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/lazy.png?1727784692442"  data-src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/doingu_2.jpg?1727784692442" alt="Emely jonson">
-                    </div>
-                    <h3 class="title-item">
-                        Emely jonson
-                    </h3>
-                    <span class="text">Chuyên viên massage</span>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="item">
-                    <div class="thumb-image">
-                        <img width="296" height="421" class="lazyload" src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/lazy.png?1727784692442"  data-src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/doingu_3.jpg?1727784692442" alt="Lola Jonson">
-                    </div>
-                    <h3 class="title-item">
-                        Lola Jonson
-                    </h3>
-                    <span class="text">Chuyên viên chăm sóc da</span>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="item">
-                    <div class="thumb-image">
-                        <img width="296" height="421" class="lazyload" src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/lazy.png?1727784692442"  data-src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/doingu_4.jpg?1727784692442" alt="Rose Marian">
-                    </div>
-                    <h3 class="title-item">
-                        Rose Marian
-                    </h3>
-                    <span class="text">Chuyên viên chăm sóc da</span>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="item">
-                    <div class="thumb-image">
-                        <img width="296" height="421" class="lazyload" src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/lazy.png?1727784692442"  data-src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/doingu_5.jpg?1727784692442" alt="Rose Marian">
-                    </div>
-                    <h3 class="title-item">
-                        Rose Marian
-                    </h3>
-                    <span class="text">Chuyên viên chăm sóc da</span>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-button-next">
-            </div>
-            <div class="swiper-button-prev">
-            </div>
-        </div>
-        </div>
-    </section>
-    <script>
-        var swiper = new Swiper('.doingu-slider', {
-            autoplay: false,
-            spaceBetween: 30,
-            navigation: {
-                nextEl: '.doingu-slider .swiper-button-next',
-                prevEl: '.doingu-slider .swiper-button-prev',
-            },
-            breakpoints: {
-                300: {
-                    slidesPerView: 1,
-                },
-                500: {
-                    slidesPerView: 1,
-                },
-                640: {
-                    slidesPerView: 1,
-                },
-                768: {
-                    slidesPerView: 2,
 
-                },
-                991: {
-                    slidesPerView: 3,
-
-                },
-                1200: {
-                    slidesPerView: 4,
-
-                }
-            }
-        });
-    </script> --}}
     <section class="section_blog section11 section_blog1">
         <div class="container">
         <h3 class="title-index">

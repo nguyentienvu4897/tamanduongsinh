@@ -50,7 +50,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-6 col-md-6 col-lg-6 col-xl-4 link-list col-footer footer-click col-fix">
+            <div class="col-12 col-md-12 col-lg-6 col-xl-4 link-list col-footer footer-click col-fix">
                 <h4 class="title-menu title-menu2">
                     Dịch vụ
                 </h4>
@@ -67,7 +67,7 @@
                     gap: 10px;
                 }
                 .list-menu li {
-                    flex: 1;
+                    flex: 1 1 calc(50% - 10px);
                 }
                 @media (max-width: 768px) {
                     .list-menu {

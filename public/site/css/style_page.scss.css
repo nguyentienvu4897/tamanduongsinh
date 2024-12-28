@@ -250,7 +250,8 @@
 
 @media (max-width: 767px) {
     .count-down .timer-view {
-        padding:0
+        padding:0;
+        border: none;
     }
 }
 

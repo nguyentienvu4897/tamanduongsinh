@@ -148,7 +148,7 @@ class ServiceController extends Controller
 				'content' => 'required',
                 'base_price' => 'required|integer',
                 'price' => 'nullable|integer|max:'.$request->base_price,
-				'image' => 'required|file|mimes:jpg,jpeg,png|max:2000'
+				'image' => 'nullable|file|mimes:jpg,jpeg,png|max:2000'
 			]
 		);
 

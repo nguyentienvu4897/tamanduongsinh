@@ -77,437 +77,152 @@
         })
 
     </script>
-    {{-- <script id="CartTemplate" type="text/template">
-        <form action="/cart" method="post" novalidate class="cart ajaxcart cartpage">
-            <div class="cart-header-info">
-                <div>Thông tin sản phẩm</div><div>Đơn giá</div><div>Số lượng</div><div>Thành tiền</div>
-            </div>
-            <div class="ajaxcart__inner ajaxcart__inner--has-fixed-footer cart_body items">
-                {{#items}}
-                <div class="ajaxcart__row">
-                    <div class="ajaxcart__product cart_product" data-line="{{line}}">
-                        <a href="{{url}}" class="ajaxcart__product-image cart_image" title="{{name}}"><img src="{{img}}" alt="{{name}}"></a>
-                        <div class="grid__item cart_info">
-                            <div class="ajaxcart__product-name-wrapper cart_name">
-                                <a href="{{url}}" class="ajaxcart__product-name h4" title="{{name}}">{{name}}</a>
-                                {{#if variation}}
-                                <span class="ajaxcart__product-meta variant-title">{{variation}}</span>
-                                {{/if}}
-                                <a class="cart__btn-remove remove-item-cart ajaxifyCart--remove" href="javascript:;" data-line="{{line}}">Xóa</a>
-
-                            </div>
-                            <div class="grid">
-                                <div class="grid__item one-half text-right cart_prices">
-                                    <span class="cart-price">{{price}}</span>
-
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="grid__item one-half cart_select">
-                                    <div class="ajaxcart__qty input-group-btn">
-                                        <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--minus items-count" data-id="{{key}}" data-qty="{{itemMinus}}" data-line="{{line}}" aria-label="-">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
-        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
-        </svg>
-                                        </button>
-                                        <input type="text" name="updates[]" class="ajaxcart__qty-num number-sidebar" maxlength="3" value="{{itemQty}}" min="0" data-id="{{key}}" data-line="{{line}}" aria-label="quantity" pattern="[0-9]*">
-                                        <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--plus items-count" data-id="{{key}}" data-line="{{line}}" data-qty="{{itemAdd}}" aria-label="+">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-        </svg>
-                                        </button>
+    <div id="quick-view-product" class="quickview-product" style="{{ Route::is('front.home-page') || (Route::currentRouteName() == 'front.service-type' && request()->route('slug') === 'tri-lieu') || Route::is('front.service-detail') ? '' : 'display:none;' }}">
+        <div class="quickview-overlay fancybox-overlay fancybox-overlay-fixed"></div>
+        <div class="quick-view-product">
+            <div id="quickview-modal" style="height: 100%;">
+                <div class="block-quickview primary_block details-product" style="height: 100%;">
+                    <div class="row" style="height: 100%;">
+                        <section class="section_khuyenmai section_product_km" style="height: 100%;">
+                            <div class="container" style="height: 100%;">
+                            <div class="thumb-khuyenmai" style="height: 100%;">
+                                <img width="1774" style="height: 100%;" alt="Trải nghiệm khuyến mãi đặc biệt" class="lazyload" src="{{asset('/site/images/lazy.png')}}"  data-src="{{asset('/site/images/hot_icon.png')}}">
+                                <div class="thumb-content">
+                                    <h3 class="title-index p-5">
+                                        <span class="title-name">Trải nghiệm ưu đãi đặc biệt
+                                        </span>
+                                        <img width="320" height="24" class="lazyload" src="{{asset('/site/images/lazy.png')}}"  data-src="{{asset('/site/images/title.png')}}" alt="{{$config->web_title}}">
+                                    </h3>
+                                    <div class="content">
+                                        <h5>Chỉ áp dụng ưu đãi cho dịch vụ trị liệu</h5>
+                                        Trải nhiệm chăm sóc chuyên sâu bằng phương pháp đông y dưỡng sinh cải thiện sức khỏe cơ thể<br>Xóa tan các hiện tượng căng thẳng đau đầu, mất ngủ, đau mỏi vai gáy, đĩa đệm....
                                     </div>
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="grid__item one-half text-right cart_prices">
-                                    <span class="cart-price">{{linePrice}}</span>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {{/items}}
-
-
-            </div>
-            <div class="ajaxcart__footer ajaxcart__footer--fixed cart-footer">
-                <div class="row">
-                    <div class="col-lg-4 col-12 offset-md-8 offset-lg-8 offset-xl-8">
-                        <div class="ajaxcart__subtotal">
-                            {{#if cartDiscountsApplied}}
-                            <div class="grid grid--table ajaxcart__discounts">
-                                {{#each cartDiscounts}}
-                                <div class="grid__item two-thirds">
-                                    <span class="order-discount order-discount--title order-discount--cart-title">
-                                        <span class="icon icon-saletag" aria-hidden="true"></span><span class="visually-hidden">%:</span>{{ this.title }}
-                                    </span>
-                                </div>
-                                <div class="grid__item one-third text-right">
-                                    <span class="order-discount">-{{{ this.formattedAmount }}}</span>
-                                </div>
-                                {{/each}}
-                            </div>
-                            {{/if}}
-                            <div class="cart__subtotal">
-                                <div class="cart__col-6">Tổng tiền:</div>
-                                <div class="text-right cart__totle"><span class="total-price">{{{totalPrice}}}</span></div>
-                            </div>
-                        </div>
-                        <div class="cart__btn-proceed-checkout-dt">
-                            <button onclick='goToCheckout(event)' type="button" class="button btn btn-default cart__btn-proceed-checkout" id="btn-proceed-checkout" title="Thanh toán">Thanh toán</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-
-    </script>
-    <script id="CartHeaderTemplate" type="text/template">
-        <form action="/cart" method="post" novalidate class="cart ajaxcart cartheader">
-            <div class="ajaxcart__inner ajaxcart__inner--has-fixed-footer cart_body items">
-                {{#items}}
-                <div class="ajaxcart__row">
-                    <div class="ajaxcart__product cart_product" data-line="{{line}}">
-                        <a href="{{url}}" class="ajaxcart__product-image cart_image" title="{{name}}"><img width="80" height="80" src="{{img}}" alt="{{name}}"></a>
-                        <div class="grid__item cart_info">
-                            <div class="ajaxcart__product-name-wrapper cart_name">
-                                <a href="{{url}}" class="ajaxcart__product-name h4" title="{{name}}">{{name}}</a>
-                                {{#if variation}}
-                                <span class="ajaxcart__product-meta variant-title">{{variation}}</span>
-                                {{/if}}
-                                <a class="cart__btn-remove remove-item-cart ajaxifyCart--remove" href="javascript:;" data-line="{{line}}">Xóa</a>
-                            </div>
-                            <div class="grid">
-                                <div class="grid__item one-half cart_select cart_item_name">
-                                <label class="cart_quantity">Số lượng</label>
-                                    <div class="ajaxcart__qty input-group-btn">
-                                        <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--minus items-count" data-id="{{key}}" data-qty="{{itemMinus}}" data-line="{{line}}" aria-label="-">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
-        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
-        </svg>
-                                        </button>
-                                        <input type="text" name="updates[]" class="ajaxcart__qty-num number-sidebar" maxlength="3" value="{{itemQty}}" min="0" data-id="{{key}}" data-line="{{line}}" aria-label="quantity" pattern="[0-9]*">
-                                        <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--plus items-count" data-id="{{key}}" data-line="{{line}}" data-qty="{{itemAdd}}" aria-label="+">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-        </svg>
-                                        </button>
+                                    <div class="count-down">
+                                        <div class="timer-view">
+                                        <div class="block-timer">Chỉ với <b>179.000đ</b></div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="grid__item one-half text-right cart_prices">
-                                    <span class="cart-price">{{price}}</span>
-
+                                    <form id="contact-promotion-popup" accept-charset="UTF-8">
+                                        <div id="pagelogin">
+                                            <div class="form-signup clearfix">
+                                                <div class="group_contact row">
+                                                    <fieldset class="form-group">
+                                                        <label>Họ và tên:</label>
+                                                        <input placeholder="Họ và tên..." type="text" class="form-control form-control-lg" required="" value="" name="contact[Họ và tên]">
+                                                    </fieldset>
+                                                    <fieldset class="form-group">
+                                                        <label>Số điện thoại:</label>
+                                                        <input placeholder="Số điện thoại..." type="number" class="form-control form-control-lg" required="" value="" name="contact[Số điện thoại]">
+                                                    </fieldset>
+                                                    <input type="hidden" name="contact[Loại]" value="Đăng ký trải nghiệm">
+                                                    <div class="submit">
+                                                        <button type="submit" class="btn-primary button_45 btn">Đăng ký trải nghiệm</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <script>
+                                        jQuery('#contact-promotion-popup').validate({
+                                            rules: {
+                                                "contact[Họ và tên]": {
+                                                    required: true,
+                                                },
+                                                "contact[Số điện thoại]": {
+                                                    required: true,
+                                                    number: true,
+                                                    minlength: 10,
+                                                },
+                                            },
+                                            messages: {
+                                                "contact[Họ và tên]": {
+                                                    required: "Vui lòng nhập họ và tên",
+                                                },
+                                                "contact[Số điện thoại]": {
+                                                    required: "Nhập số điện thoại liên hệ",
+                                                },
+                                                "contact[Loại]": {
+                                                    required: "Chọn loại",
+                                                },
+                                            },
+                                            submitHandler: function(form) {
+                                                jQuery.ajax({
+                                                    url: "https://script.google.com/macros/s/AKfycbwacSU5_P2qnY1Stzh3vvk6T0Rb6qEX_nK3VjLwvmMKKFNZf6qYogZO35RqfCaPP9utrw/exec",
+                                                    type: "post",
+                                                    data: jQuery("#contact-promotion-popup").serializeArray(),
+                                                    success: function() {
+                                                        toastr.success("Đăng ký trải nghiệm thành công");
+                                                    },
+                                                    error: function() {
+                                                        toastr.error("Gửi thông tin thất bại");
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    </script>
+                                    <style>
+                                        #contact-promotion-popup #pagelogin {
+                                            padding: 20px;
+                                            background: #121f38;
+                                            border-radius: 30px 10px;
+                                        }
+                                        #contact-promotion-popup #pagelogin .form-signup .group_contact .form-group {
+                                            flex: 0 0 50%;
+                                            max-width: 50%;
+                                            position: relative;
+                                            width: 100%;
+                                            padding-right: 10px;
+                                            padding-left: 10px;
+                                            margin-bottom: 20px;
+                                            color: #fff;
+                                        }
+                                        #contact-promotion-popup #pagelogin .form-signup .group_contact .form-group label {
+                                            width: 100%;
+                                            font-weight: 700;
+                                            font-size: 14px;
+                                            text-align: left;
+                                        }
+                                        #contact-promotion-popup #pagelogin .form-signup .group_contact .form-group input {
+                                            width: 100% !important;
+                                            border-radius: 10px 2px;
+                                            height: 35px;
+                                            font-size: 15px;
+                                            border: 0;
+                                            border-bottom: 2px solid #121f38;
+                                            padding: 1px 10px;
+                                        }
+                                        #contact-promotion-popup #pagelogin .form-signup .group_contact .form-group input:focus {
+                                            border-bottom: 2px solid #121f38;
+                                        }
+                                        #contact-promotion-popup #pagelogin .form-signup .group_contact .submit {
+                                            text-align: center;
+                                            display: inline-block;
+                                            width: 100%;
+                                        }
+                                        #contact-promotion-popup #pagelogin .form-signup .group_contact .submit .button_45 {
+                                            background: #9a563a;
+                                            color: #fff;
+                                            border-radius: 10px 2px;
+                                            height: 35px;
+                                            font-size: 15px;
+                                            border: 0;
+                                            padding: 1px 10px;
+                                        }
+                                    </style>
                                 </div>
                             </div>
-                        </div>
+                            </div>
+                        </section>
                     </div>
                 </div>
-                {{/items}}
-            </div>
-            <div class="ajaxcart__footer ajaxcart__footer--fixed cart-footer">
-                <div class="ajaxcart__subtotal">
-                    <div class="cart__subtotal">
-                        <div class="cart__col-6">Tổng tiền:</div>
-                        <div class="text-right cart__totle"><span class="total-price">{{{totalPrice}}}</span></div>
-                    </div>
-                </div>
-                <div class="cart__btn-proceed-checkout-dt">
-                    <button onclick="location.href='/checkout'" type="button" class="button btn btn-default cart__btn-proceed-checkout" id="btn-proceed-checkout" title="Thanh toán">Thanh toán</button>
-                </div>
-            </div>
-        </form>
-
-
-    </script>
-    <script id="CartPopupTemplate" type="text/template">
-        <form action="/cart" method="post" novalidate class="cart ajaxcart cartpopup">
-            <div class="cart-header-info">
-                <div>Thông tin sản phẩm</div><div>Đơn giá</div><div>Số lượng</div><div>Thành tiền</div>
-            </div>
-            <div class="ajaxcart__inner ajaxcart__inner--has-fixed-footer cart_body items">
-                {{#items}}
-                <div class="ajaxcart__row">
-                    <div class="ajaxcart__product cart_product" data-line="{{line}}">
-                        <a href="{{url}}" class="ajaxcart__product-image cart_image" title="{{name}}"><img width="80" height="80" src="{{img}}" alt="{{name}}"></a>
-                        <div class="grid__item cart_info">
-                            <div class="ajaxcart__product-name-wrapper cart_name">
-                                <a href="{{url}}" class="ajaxcart__product-name h4" title="{{name}}">{{name}}</a>
-                                {{#if variation}}
-                                <span class="ajaxcart__product-meta variant-title">{{variation}}</span>
-                                {{/if}}
-                                <a class="cart__btn-remove remove-item-cart ajaxifyCart--remove" href="javascript:;" data-line="{{line}}">Xóa</a>
-
-                            </div>
-                            <div class="grid">
-                                <div class="grid__item one-half text-right cart_prices">
-                                    <span class="cart-price">{{price}}</span>
-
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="grid__item one-half cart_select">
-                                    <div class="ajaxcart__qty input-group-btn">
-                                        <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--minus items-count" data-id="{{key}}" data-qty="{{itemMinus}}" data-line="{{line}}" aria-label="-">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
-        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
-        </svg>
-                                        </button>
-                                        <input type="text" name="updates[]" class="ajaxcart__qty-num number-sidebar" maxlength="3" value="{{itemQty}}" min="0" data-id="{{key}}" data-line="{{line}}" aria-label="quantity" pattern="[0-9]*">
-                                        <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--plus items-count" data-id="{{key}}" data-line="{{line}}" data-qty="{{itemAdd}}" aria-label="+">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-        </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="grid__item one-half text-right cart_prices">
-                                    <span class="cart-price">{{linePrice}}</span>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {{/items}}
-            </div>
-            <div class="ajaxcart__footer ajaxcart__footer--fixed cart-footer">
-                <div class="row">
-                    <div class="col-lg-4 col-12 offset-md-8 offset-lg-8 offset-xl-8">
-                        <div class="ajaxcart__subtotal">
-                            <div class="cart__subtotal">
-                                <div class="cart__col-6">Tổng tiền:</div>
-                                <div class="text-right cart__totle"><span class="total-price">{{{totalPrice}}}</span></div>
-                            </div>
-                        </div>
-                        <div class="cart__btn-proceed-checkout-dt">
-                            <button onclick="location.href='/checkout'" type="button" class="button btn btn-default cart__btn-proceed-checkout" id="btn-proceed-checkout" title="Thanh toán">Thanh toán</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-
-
-    </script>
-    <script id="CartMobileTemplate" type="text/template">
-        <form action="/cart" method="post" novalidate class="cart ajaxcart cart-mobile">
-            <div class="ajaxcart__inner ajaxcart__inner--has-fixed-footer cart_body">
-                {{#items}}
-                <div class="ajaxcart__row">
-                    <div class="ajaxcart__product cart_product" data-line="{{line}}">
-                        <a href="{{url}}" class="ajaxcart__product-image cart_image" title="{{name}}"><img width="80" height="80" src="{{img}}" alt="{{name}}"></a>
-                        <div class="grid__item cart_info">
-                            <div class="ajaxcart__product-name-wrapper cart_name">
-                                <a href="{{url}}" class="ajaxcart__product-name h4" title="{{name}}">{{name}}</a>
-                                {{#if variation}}
-                                <span class="ajaxcart__product-meta variant-title">{{variation}}</span>
-                                {{/if}}
-                            </div>
-                            <div class="grid">
-                                <div class="grid__item one-half cart_select cart_item_name">
-                                    <div class="ajaxcart__qty input-group-btn">
-                                        <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--minus items-count" data-id="{{key}}" data-qty="{{itemMinus}}" data-line="{{line}}" aria-label="-">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
-        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
-        </svg>
-                                        </button>
-                                        <input type="text" name="updates[]" class="ajaxcart__qty-num number-sidebar" maxlength="3" value="{{itemQty}}" min="0" data-id="{{key}}" data-line="{{line}}" aria-label="quantity" pattern="[0-9]*">
-                                        <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--plus items-count" data-id="{{key}}" data-line="{{line}}" data-qty="{{itemAdd}}" aria-label="+">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-        </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="grid__item one-half text-right cart_prices">
-                                    <span class="cart-price">{{price}}</span>
-
-                                    <a class="cart__btn-remove remove-item-cart ajaxifyCart--remove" href="javascript:;" data-line="{{line}}">Xóa</a>
-                                </div>
-                            </div>
-                            {{#if discountsApplied}}
-                            <div class="grid grid--table">
-                                <div class="grid__item text-right">
-                                    <ul class="order-discount order-discount--list order-discount--title order-discount--cart order-discount--cart-title" aria-label="Giảm giá">
-                                        {{#each discounts}}
-                                        <li class="order-discount__item">
-                                            <span class="icon icon-saletag" aria-hidden="true"></span>{{ this.discount_application.title }} (-{{{ this.formattedAmount }}})
-                                        </li>
-                                        {{/each}}
-                                    </ul>
-                                </div>
-                            </div>
-                            {{/if}}
-                        </div>
-                    </div>
-                </div>
-                {{/items}}
-
-
-            </div>
-            <div class="ajaxcart__footer ajaxcart__footer--fixed cart-footer">
-                <div class="ajaxcart__subtotal">
-                    {{#if cartDiscountsApplied}}
-                    <div class="grid grid--table ajaxcart__discounts">
-                        {{#each cartDiscounts}}
-                        <div class="grid__item two-thirds">
-                            <span class="order-discount order-discount--title order-discount--cart-title">
-                                <span class="icon icon-saletag" aria-hidden="true"></span><span class="visually-hidden">%:</span>{{ this.title }}
-                            </span>
-                        </div>
-                        <div class="grid__item one-third text-right">
-                            <span class="order-discount">-{{{ this.formattedAmount }}}</span>
-                        </div>
-                        {{/each}}
-                    </div>
-                    {{/if}}
-                    <div class="cart__subtotal">
-                        <div class="cart__col-6">Tổng tiền:</div>
-                        <div class="text-right cart__totle"><span class="total-price">{{{totalPrice}}}</span></div>
-                    </div>
-                </div>
-                <div class="cart__btn-proceed-checkout-dt">
-                    <button onclick='goToCheckout(event)' type="button" class="button btn btn-default cart__btn-proceed-checkout" id="btn-proceed-checkout" title="Thanh toán">Thanh toán</button>
-                </div>
-            </div>
-        </form>
-
-
-    </script> --}}
-    {{-- <script id="JsQty" type="text/template">
-        <div class="js-qty">
-            <button type="button" class="js-qty__adjust js-qty__adjust--minus items-count" data-id="{{key}}" data-qty="{{itemMinus}}" aria-label="-">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
-        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
-        </svg>
-            </button>
-            <input type="text" class="js-qty__num number-sidebar" maxlength="3" value="{{itemQty}}" min="1" data-id="{{key}}" aria-label="quantity" pattern="[0-9]*" name="{{inputName}}" id="{{inputId}}">
-            <button type="button" class="js-qty__adjust js-qty__adjust--plus items-count" data-id="{{key}}" data-qty="{{itemAdd}}" aria-label="+">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-        </svg>
-            </button>
-        </div>
-
-    </script> --}}
-    {{-- <div id="popup-cart-mobile" class="popup-cart-mobile">
-        <div class="header-popcart">
-            <div class="top-cart-header">
-            <span>
-                <svg xmlns="http://www.w3.org/2000/svg" height="682.66669pt" viewBox="-21 -21 682.66669 682.66669" width="682.66669pt">
-                    <path d="m322.820312 387.933594 279.949219-307.273438 36.957031 33.671875-314.339843 345.023438-171.363281-162.902344 34.453124-36.238281zm297.492188-178.867188-38.988281 42.929688c5.660156 21.734375 8.675781 44.523437 8.675781 68.003906 0 148.875-121.125 270-270 270s-270-121.125-270-270 121.125-270 270-270c68.96875 0 131.96875 26.007812 179.746094 68.710938l33.707031-37.113282c-58.761719-52.738281-133.886719-81.597656-213.453125-81.597656-85.472656 0-165.835938 33.285156-226.273438 93.726562-60.441406 60.4375-93.726562 140.800782-93.726562 226.273438s33.285156 165.835938 93.726562 226.273438c60.4375 60.441406 140.800782 93.726562 226.273438 93.726562s165.835938-33.285156 226.273438-93.726562c60.441406-60.4375 93.726562-140.800782 93.726562-226.273438 0-38.46875-6.761719-75.890625-19.6875-110.933594zm0 0"/>
+                <a title="Close" class="quickview-close close-window" href="javascript:;">
+                <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="svg-inline--fa fa-times fa-w-10">
+                    <path fill="currentColor" d="M207.6 256l107.72-107.72c6.23-6.23 6.23-16.34 0-22.58l-25.03-25.03c-6.23-6.23-16.34-6.23-22.58 0L160 208.4 52.28 100.68c-6.23-6.23-16.34-6.23-22.58 0L4.68 125.7c-6.23 6.23-6.23 16.34 0 22.58L112.4 256 4.68 363.72c-6.23 6.23-6.23 16.34 0 22.58l25.03 25.03c6.23 6.23 16.34 6.23 22.58 0L160 303.6l107.72 107.72c6.23 6.23 16.34 6.23 22.58 0l25.03-25.03c6.23-6.23 6.23-16.34 0-22.58L207.6 256z" class=""></path>
                 </svg>
-                Mua hàng thành công
-            </span>
-            </div>
-            <div class="media-content bodycart-mobile">
-            </div>
-            <a class="noti-cart-count" href="/cart" title="Giỏ hàng"> Giỏ hàng của bạn hiện có <span class="count_item_pr"></span> sản phẩm </a>
-            <a title="Đóng" class="cart_btn-close iconclose">
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001;" xml:space="preserve">
-                <g>
-                    <g>
-                        <path d="M284.286,256.002L506.143,34.144c7.811-7.811,7.811-20.475,0-28.285c-7.811-7.81-20.475-7.811-28.285,0L256,227.717    L34.143,5.859c-7.811-7.811-20.475-7.811-28.285,0c-7.81,7.811-7.811,20.475,0,28.285l221.857,221.857L5.858,477.859    c-7.811,7.811-7.811,20.475,0,28.285c3.905,3.905,9.024,5.857,14.143,5.857c5.119,0,10.237-1.952,14.143-5.857L256,284.287    l221.857,221.857c3.905,3.905,9.024,5.857,14.143,5.857s10.237-1.952,14.143-5.857c7.811-7.811,7.811-20.475,0-28.285    L284.286,256.002z"/>
-                    </g>
-                </g>
-            </svg>
-            </a>
-            <div class="bottom-action">
-            <div class="cart_btn-close tocontinued" title="Tiếp tục mua hàng">
-                Tiếp tục mua hàng
-            </div>
-            <a href="/checkout" class="checkout" title="Thanh toán ngay">
-            Thanh toán ngay
-            </a>
+                </a>
             </div>
         </div>
     </div>
-    <div id="quick-view-product" class="quickview-product" style="display:none;">
-        <div class="quickview-overlay fancybox-overlay fancybox-overlay-fixed"></div>
-        <div class="quick-view-product"></div>
-        <div id="quickview-modal" style="display:none;">
-            <div class="block-quickview primary_block details-product">
-            <div class="row">
-                <div class="product-left-column product-images col-xs-12 col-sm-4 col-md-4 col-lg-5 col-xl-6">
-                    <div class="image-block large-image col_large_default">
-                        <span class="view_full_size">
-                        <a class="img-product" title="" href="javascript:;">
-                        <img src="//bizweb.dktcdn.net/100/512/203/themes/943792/assets/logo.png?1727784692442" id="product-featured-image-quickview" class="img-responsive product-featured-image-quickview" alt="quickview"  />
-                        </a>
-                        </span>
-                        <div class="loading-imgquickview" style="display:none;"></div>
-                    </div>
-                    <div class="more-view-wrapper clearfix">
-                        <div class="thumbs_quickview owl_nav_custome1 swiper-container" id="thumbs_list_quickview">
-                        <ul class="product-photo-thumbs quickview-more-views-owlslider not-thuongdq swiper-wrapper" id="thumblist_quickview"></ul>
-                        <div class="swiper-button-prev">
-                        </div>
-                        <div class="swiper-button-next">
-                        </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-center-column product-info product-item col-xs-12 col-sm-6 col-md-8 col-lg-7 col-xl-6 details-pro style_product style_border">
-                    <div class="head-qv group-status">
-                        <h3 class="qwp-name title-product">abc</h3>
-                        <div class="vend-qv group-status">
-                        <div class="left_vend">
-                            <div class="first_status ">Tình trạng:
-                                <span class="soluong status_name"></span>
-                            </div>
-                            <div class="top_sku first_status">Mã sản phẩm:
-                                <span class="sku_ status_name"></span>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="quickview-info">
-                        <span class="prices price-box">
-                        <span class="price product-price"></span>
-                        <del class="old-price"></del>
-                        </span>
-                    </div>
-                    <div class="product-description product-summary">
-                        <div class="rte">
-                        </div>
-                    </div>
-                    <form action="/cart/add" method="post" enctype="multipart/form-data" class="quick_option variants form-ajaxtocart form-product">
-                        <span class="price-product-detail d-none" style="opacity: 0;">
-                        <span class=""></span>
-                        </span>
-                        <select name='variantId' class="d-none" style="display:none"></select>
-                        <div class="form_product_content">
-                        <div class="count_btn_style quantity_wanted_p">
-                            <div class=" soluong1 clearfix">
-                                <span class="soluong_h">Số lượng:</span>
-                                <div class="sssssscustom input_number_product">
-                                    <button class="btn_num num_1 button button_qty" onClick="var result = document.getElementById('quantity-detail'); var qtyqv = result.value; if( !isNaN( qtyqv ) &amp;&amp; qtyqv &gt; 1 ) result.value--;return false;">-</button>
-                                    <input type="text" id="quantity-detail" name="quantity" value="1" maxlength="2" class="form-control prd_quantity" onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;" onchange="if(this.value == 0)this.value=1;">
-                                    <button class="btn_num num_2 button button_qty" onClick="var result = document.getElementById('quantity-detail'); var qtyqv = result.value; if( !isNaN( qtyqv )) result.value++;return false;">+</button>
-                                </div>
-                            </div>
-                            <div class="button_actions clearfix">
-                                <button type="submit" class="btn_cool btn btn_base fix_add_to_cart ajax_addtocart btn_add_cart btn-cart add_to_cart add_to_cart_detail">
-                                <span class="btn-content text_1">Thêm vào giỏ hàng</span>
-                                </button>
-                            </div>
-                        </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            </div>
-            <a title="Close" class="quickview-close close-window" href="javascript:;">
-            <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="svg-inline--fa fa-times fa-w-10">
-                <path fill="currentColor" d="M207.6 256l107.72-107.72c6.23-6.23 6.23-16.34 0-22.58l-25.03-25.03c-6.23-6.23-16.34-6.23-22.58 0L160 208.4 52.28 100.68c-6.23-6.23-16.34-6.23-22.58 0L4.68 125.7c-6.23 6.23-6.23 16.34 0 22.58L112.4 256 4.68 363.72c-6.23 6.23-6.23 16.34 0 22.58l25.03 25.03c6.23 6.23 16.34 6.23 22.58 0L160 303.6l107.72 107.72c6.23 6.23 16.34 6.23 22.58 0l25.03-25.03c6.23-6.23 6.23-16.34 0-22.58L207.6 256z" class=""></path>
-            </svg>
-            </a>
-        </div>
-    </div> --}}
     <script type="text/javascript">
         function changeImageQuickView(img, selector) {
             var src = $(img).attr("src");

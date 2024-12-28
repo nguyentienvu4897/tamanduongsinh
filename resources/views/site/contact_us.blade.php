@@ -130,19 +130,77 @@
                                 <div id="pagelogin">
                                     <form id="contact" accept-charset="UTF-8">
                                         <div class="group_contact">
-                                            <input placeholder="Họ và tên" type="text"
-                                                class="form-control  form-control-lg" required value=""
-                                                name="your_name">
-                                            <input placeholder="Email" type="email"
-                                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required id="email1"
-                                                class="form-control form-control-lg" value="" name="your_email">
-                                            <input type="number" placeholder="Điện thoại*" name="your_phone"
-                                                class="form-control form-control-lg" required>
-                                            <textarea placeholder="Nội dung" name="your_message" id="comment" class="form-control content-area form-control-lg"
-                                                rows="5" Required></textarea>
+                                            <div class="form-group">
+                                                <input placeholder="Họ và tên" type="text"
+                                                    class="form-control  form-control-lg" required value=""
+                                                    name="contact[Họ và tên]">
+                                            </div>
+                                            <div class="form-group">
+                                                <input placeholder="Email" type="email"
+                                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required id="email1"
+                                                    class="form-control form-control-lg" value="" name="contact[Email]">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="number" placeholder="Điện thoại*" name="contact[Số điện thoại]"
+                                                    class="form-control form-control-lg" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea placeholder="Nội dung" name="contact[Nội dung]" id="comment" class="form-control content-area form-control-lg"
+                                                    rows="5"></textarea>
+                                            </div>
+                                            <input type="hidden" name="contact[Loại]" value="Lữ hành">
+
                                             <button type="submit" class="btn-lienhe">Gửi thông tin</button>
                                         </div>
                                     </form>
+                                    <script>
+                                        jQuery('#contact').validate({
+                                            rules: {
+                                                "contact[Họ và tên]": {
+                                                    required: true,
+                                                },
+                                                "contact[Email]": {
+                                                    required: true,
+                                                    email: true,
+                                                },
+                                                "contact[Số điện thoại]": {
+                                                    required: true,
+                                                    number: true,
+                                                    minlength: 10,
+                                                },
+                                                "contact[Loại]": {
+                                                    required: true,
+                                                },
+                                            },
+                                            messages: {
+                                                "contact[Họ và tên]": {
+                                                    required: "Vui lòng nhập họ và tên",
+                                                },
+                                                "contact[Email]": {
+                                                    required: "Email không được để trống",
+                                                },
+                                                "contact[Số điện thoại]": {
+                                                    required: "Nhập số điện thoại liên hệ",
+                                                },
+                                                "contact[Loại]": {
+                                                    required: "Chọn loại",
+                                                },
+                                            },
+                                            submitHandler: function(form) {
+                                                jQuery.ajax({
+                                                    url: "https://script.google.com/macros/s/AKfycbwacSU5_P2qnY1Stzh3vvk6T0Rb6qEX_nK3VjLwvmMKKFNZf6qYogZO35RqfCaPP9utrw/exec",
+                                                    type: "post",
+                                                    data: jQuery("#contact").serializeArray(),
+                                                    success: function() {
+                                                        toastr.success("Gửi thông tin thành công");
+                                                    },
+                                                    error: function() {
+                                                        toastr.error("Gửi thông tin thất bại");
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    </script>
                                 </div>
                             </div>
                         </div>

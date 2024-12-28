@@ -8,12 +8,12 @@
     </span>
     <ul>
 
-    <li>Thời gian: <b>{{$service->time}}</b></li>
+    {{-- <li>Thời gian: <b>{{$service->time}}</b></li>
 
     <li>Giá: <b>{{formatCurrency($service->base_price)}}₫</b></li>
     @if ($service->price)
     <li>Giá khuyến mãi: <b>{{formatCurrency($service->price)}}₫</b></li>
-    @endif
+    @endif --}}
     </ul>
     <a class="button" href="{{route('front.service-detail', $service->slug)}}" title="Xem ngay">Xem ngay</a>
 </div>

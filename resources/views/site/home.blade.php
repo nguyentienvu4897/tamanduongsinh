@@ -816,7 +816,6 @@
                                 required: "Chọn loại",
                             },
                         },
-                        
                         submitHandler: function(form) {
                             console.log(jQuery("#contact").serializeArray());
 

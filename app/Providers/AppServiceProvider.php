@@ -34,7 +34,10 @@ class AppServiceProvider extends ServiceProvider
         }
 
         $config = \App\Model\Admin\Config::with(['image'])->where('id',1)->first();
+        $type_services = \App\Model\Admin\ServiceType::where('slug','tri-lieu')->first();
+        $tri_lieu_services = \App\Model\Admin\Service::where('service_type_id',$type_services->id)->where('status',1)->get();
         view()->share('config', $config);
+        view()->share('tri_lieu_services', $tri_lieu_services);
 
         // \Illuminate\Database\Query\Builder::macro('toRawSql', function(){
 		// 	return array_reduce($this->getBindings(), function($sql, $binding){

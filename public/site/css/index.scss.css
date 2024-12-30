@@ -330,7 +330,7 @@ section {
         position:absolute;
         top: 50%;
         transform: translate(0, -50%);
-        width: 50%;
+        width: 60%;
         right: 0
     }
 }
@@ -1092,7 +1092,7 @@ section {
         position: absolute;
         top: 50%;
         transform: translate(0, -50%);
-        width: 70%;
+        width: 75%;
         right: 0;
     }
     #quick-view-product .section_khuyenmai .thumb-khuyenmai .thumb-content .title-index {

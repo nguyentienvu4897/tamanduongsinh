@@ -100,6 +100,15 @@
                                     <label>Số điện thoại:</label>
                                     <input placeholder="Số điện thoại..." type="number" class="form-control form-control-lg" required="" value="" name="contact[Số điện thoại]">
                                 </fieldset>
+                                <fieldset class="form-group">
+                                    <label>Chọn dịch vụ:</label>
+                                    <select id="city" name="contact[Dịch vụ]" class="select select-dv" required="">
+                                    <option value="" selected="">Chọn dịch vụ</option>
+                                    @foreach ($tri_lieu_services as $item)
+                                    <option class="check" value="{{$item->name}}">{{$item->name}}</option>
+                                    @endforeach
+                                    </select>
+                                </fieldset>
                                 <input type="hidden" name="contact[Loại]" value="Đăng ký trải nghiệm">
                                 <div class="submit">
                                     <button type="submit" class="btn-primary button_45 btn">Đăng ký trải nghiệm</button>
@@ -119,6 +128,9 @@
                                 number: true,
                                 minlength: 10,
                             },
+                            "contact[Dịch vụ]": {
+                                required: true,
+                            },
                         },
                         messages: {
                             "contact[Họ và tên]": {
@@ -126,6 +138,9 @@
                             },
                             "contact[Số điện thoại]": {
                                 required: "Nhập số điện thoại liên hệ",
+                            },
+                            "contact[Dịch vụ]": {
+                                required: "Vui lòng chọn dịch vụ",
                             },
                             "contact[Loại]": {
                                 required: "Chọn loại",
@@ -154,7 +169,7 @@
                     }
                     #contact-promotion #pagelogin .form-signup .group_contact .form-group {
                         flex: 0 0 50%;
-                        max-width: 50%;
+                        max-width: 33.33%;
                         position: relative;
                         width: 100%;
                         padding-right: 10px;
@@ -192,6 +207,15 @@
                         height: 35px;
                         font-size: 15px;
                         border: 0;
+                        padding: 1px 10px;
+                    }
+                    #contact-promotion #pagelogin .form-signup .group_contact .form-group select {
+                        width: 100% !important;
+                        border-radius: 10px 2px;
+                        height: 35px;
+                        font-size: 15px;
+                        border: 0;
+                        border-bottom: 2px solid #121f38;
                         padding: 1px 10px;
                     }
                 </style>
@@ -270,7 +294,7 @@
         </div>
         </div>
     </section>
-    
+
     @foreach ($listServiceTypes as $type)
     @if ($type->services->count() > 0)
     <section class="section_product_dichvu">

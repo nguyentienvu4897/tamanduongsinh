@@ -96,7 +96,7 @@ Quản lý bài viết
                 }
             },
             {data: 'cate_id', title: 'Danh mục'},
-            {data: 'category_special', title: 'Danh mục đặc biệt'},
+            // {data: 'category_special', title: 'Danh mục đặc biệt'},
             {data: 'created_at', title: "Ngày cập nhật"},
             {data: 'updated_by', title: "Người cập nhật"},
             {
@@ -114,10 +114,10 @@ Quản lý bài viết
                 data: 'cate_id', search_type: "select", placeholder: "Danh mục",
                 column_data: @json(App\Model\Admin\PostCategory::getForSelect())
             },
-            {
-                data: 'cate_special_id', search_type: "select", placeholder: "Danh mục đặc biệt",
-                column_data: @json(App\Model\Admin\CategorySpecial::getForSelectForPost())
-            }
+            // {
+            //     data: 'cate_special_id', search_type: "select", placeholder: "Danh mục đặc biệt",
+            //     column_data: @json(App\Model\Admin\CategorySpecial::getForSelectForPost())
+            // }
         ],
         search_by_time: false,
         @if(Auth::user()->type == App\Model\Common\User::SUPER_ADMIN || Auth::user()->type == App\Model\Common\User::QUAN_TRI_VIEN)

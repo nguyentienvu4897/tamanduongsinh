@@ -128,7 +128,7 @@
                 // {data: 'base_price', title: "Đơn giá chưa giảm"},
                 {data: 'price', title: "Đơn giá bán"},
                 {data: 'cate_id', title: 'Danh mục'},
-                {data: 'category_special', title: 'Danh mục đặc biệt'},
+                // {data: 'category_special', title: 'Danh mục đặc biệt'},
                 {
                     data: 'status',
                     title: "Trạng thái",
@@ -169,10 +169,10 @@
                     data: 'cate_id', search_type: "select", placeholder: "Danh mục",
                     column_data: @json(App\Model\Admin\Category::getForSelect())
                 },
-                {
-                    data: 'cate_special_id', search_type: "select", placeholder: "Danh mục đặc biệt",
-                    column_data: @json(App\Model\Admin\CategorySpecial::getForSelectForProduct())
-                }
+                // {
+                //     data: 'cate_special_id', search_type: "select", placeholder: "Danh mục đặc biệt",
+                //     column_data: @json(App\Model\Admin\CategorySpecial::getForSelectForProduct())
+                // }
             ],
             act: true,
         }).datatable;

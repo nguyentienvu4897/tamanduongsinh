@@ -191,6 +191,12 @@
                                             margin-bottom: 20px;
                                             color: #fff;
                                         }
+                                        @media (max-width: 768px) {
+                                            #contact-promotion-popup #pagelogin .form-signup .group_contact .form-group {
+                                                flex: 0 0 100%;
+                                                max-width: 100%;
+                                            }
+                                        }
                                         #contact-promotion-popup #pagelogin .form-signup .group_contact .form-group label {
                                             width: 100%;
                                             font-weight: 700;
